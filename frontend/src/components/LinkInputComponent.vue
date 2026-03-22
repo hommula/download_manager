@@ -42,19 +42,19 @@ function refreshDirectory()
                 <option value="googleDownload">Google</option>
             </select>
             <input v-model="download_link" placeholder="Type your download link here" id="downloadLinkInputBox"> 
-            <button @click="onDownloadQueued" id="queueDownloadButton">Queue Download</button>
+            <button @click="onDownloadQueued" id="queueDownloadBtn">Queue Download</button>
         </div>
         <div id="linkOptions">
             <div class="optionAttributes">
                 <label for="mediaType">Media Type</label>
                 <select name="mediaType" id="mediaTypeSelection" v-model="media_type">
-                    <option value="" disabled>Select a media type</option>
+                    <option value="" disabled>select media type</option>
                     <option value="audio">audio</option>
                     <option value="video">video</option>
                 </select>
                 <label for="fileDestination">Destination</label>
                 <select name="fileDestination" id="fileDestination" v-model="fileDestination">
-                    <option value="" disabled>Select a directory</option>
+                    <option value="" disabled>select a folder</option>
                     <option v-for="dir in storage_directory" :key="dir" :value="dir">
                         {{ dir }}
                     </option>
@@ -115,11 +115,12 @@ function refreshDirectory()
 
 }
 
-#queueDownloadButton{
+#queueDownloadBtn{
     background-color: white;
     color: black;
     width: 10em;
     height: 3em;
+    font-size: large;
 }
 
 #addSubDir{
