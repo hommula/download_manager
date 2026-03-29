@@ -11,7 +11,7 @@ def client():
 def assert_download_fields(record):
     assert 'queueID' in record
     assert 'fileName' in record
-    assert 'fileType' in record
+    assert 'mediaType' in record
     assert 'storedLocation' in record
     assert 'fileSize' in record
 
@@ -19,7 +19,7 @@ def assert_download_fields(record):
 def test_queue_direct_download_return_201(client):
     res = client.post('/queue_downloads',{
         "url": "https://file-examples.com/storage/feb22885ff69bf452995602/2017/04/file_example_MP4_480_1_5MG.mp4",
-        "fileType": "Video",
+        "mediaType": "Video",
         "linkProvider": "direct",
         "storedLocation": "/home/Desktop",
     }, format="json")
