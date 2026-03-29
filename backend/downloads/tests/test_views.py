@@ -35,6 +35,22 @@ def test_refresh_directory(client):
     })
     assert res.status_code == 200 # successfully fetched for subDir under the current directory
     assert isinstance(res.data, list) # the response returns a list containing child dirs in string
+# test on fetching for no sub directory 
+def test_refresh_directory_no_child(client):
+    res = client.get('/dir_structure',{
+        "currentDir": "/home/Desktop"                     
+    })
+    assert res.status_code == 200
+    assert isinstance(res.data, list)
+    assert not len(res.data)
+
+# test on fetching for invalid directory name
+def test_refresh_directory_invalid_name(client):
+    res = client.get('/dir_structure',{
+        "currentDir": ""
+    })
+    assert res.status_code == 400
+    
 
 # test on fetching for the current download queue
 def test_refresh_download_queue(client):
@@ -45,8 +61,16 @@ def test_refresh_download_queue(client):
         first_record = res.data[0]
         assert_download_fields(first_record)
 
+# test on fetching for empty download queue, expect empty queue returned
+def test_refresh_empty_download_queue(client):
+    res = client.get("/queue")
+    assert res.status_code == 200
+    assert isinstance(res.data, list)
+    assert len(res.data) == 0
+ 
 # test on fetching for the current download queue's progress
 def test_get_progress(client):
     res = client.get('/download_progress') 
     assert res.status_code == 200
     assert isinstance(res.data, list) # the result contains a list of downloading downloads. Containing their queueID, progress in float
+

@@ -6,10 +6,13 @@ from subprocess import call
 # Create your views here.
 @api_view(["POST"])
 def add_download_queue(req):
-    url = req.data.get("url")
-    file_type = req.data.get("fileType")
     link_provider = req.data.get("linkProvider")
-    stored_location = req.data.get("storedLocation")
+    if link_provider == "debridDownload":
+        download_result = debrid_download(req)
+
+
+
+
     downloads = [
         {"queueID": 1,
          "fileName": "test_name",
@@ -19,6 +22,7 @@ def add_download_queue(req):
     ]
     return Response(downloads, status=201)
     pass
+
 
 @api_view(["GET"])
 def get_directory_structure(req):
