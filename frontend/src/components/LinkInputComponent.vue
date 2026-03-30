@@ -8,22 +8,20 @@ import '../styles/global.css'
 const download_link = ref('');
 const storage_directory = ref([]);
 const fileDestination = ref('');
-const media_type = ref('');
+const media_type = ref('video');
+const link_provider_option = ref('debridDownload');
 
-onMounted(() =>
-{
-    storage_directory.value.push("testing1", "testing2")
-})
-
-function onDownloadQueued()
-{
-
+async function onDownloadQueued() {
+    const response = await axios.post('http://localhost:8000/api/download/queue_downloads', {
+        url: download_link.value,
+        storedLocation: fileDestination.value,
+        mediaType: media_type.value,
+        linkProvider: link_provider_option.value,
+    });
+    console.log(response.data);
+    alert(response.data)
 }
 
-function refreshDirectory()
-{
-
-}
 
 </script>
 
@@ -36,7 +34,7 @@ function refreshDirectory()
         </div>
         <p>This is your path: {{ media_type }}/{{ fileDestination }}</p>
         <div id="linkInputBox">
-            <select name="linkProviderOption" id="linkProviderOption">
+            <select v-model="link_provider_option" name="linkProviderOption" id="linkProviderOption">
                 <option value="debridDownload">Debrid</option>
                 <option value="directDownload">Direct</option>
                 <option value="googleDownload">Google</option>
@@ -53,14 +51,8 @@ function refreshDirectory()
                     <option value="video">video</option>
                 </select>
                 <label for="fileDestination">Destination</label>
-                <select name="fileDestination" id="fileDestination" v-model="fileDestination">
-                    <option value="" disabled>select a folder</option>
-                    <option v-for="dir in storage_directory" :key="dir" :value="dir">
-                        {{ dir }}
-                    </option>
-                </select>
-                <input type="image" :src="addIcon" id="addSubDir"/>
-                <button @click="refreshDirectory">Refresh Directory</button>
+                <input v-model="fileDestination" placeholder="File Destination" type="text">
+                <button @click="refreshDirectory">Show Directory</button>
             </div>
         </div>
     </div>
