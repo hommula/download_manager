@@ -15,6 +15,7 @@ async def debrid_download(req):
         async with httpx.AsyncClient() as client:
             r = await client.post(DEBRID_DOWNLOAD_API, json=payload)
         data = r.json()
+        print("DEBUG debrid API response:", data)
 
         if data["success"] and data["value"]:
             files_to_download = [file for file in data["value"]]
