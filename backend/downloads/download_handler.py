@@ -6,6 +6,7 @@ DEBRID_DOWNLOAD_API = os.getenv('DEBRID_DOWNLOAD_API')
 JELLYFIN_PATH = os.getenv('JELLYFIN_PATH')
 
 async def debrid_download(req):
+    print("DEBUG debrid_download called")
     try:
         stored_location = req.data.get("storedLocation")
         media_type = req.data.get("mediaType")
@@ -33,13 +34,7 @@ async def debrid_download(req):
         }
 
     except Exception as e:
-        print("Error caught in debrid_download: ", e)
-        return {
-            "status": "Failed",
-            "status_code": 500,
-            "error_message": e,
-            "downloads": []
-        }
+        raise e
 
 
 async def download_handler(file, media_type, stored_location):

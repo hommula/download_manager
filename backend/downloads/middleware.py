@@ -17,6 +17,7 @@ class RequestLoggingMiddleware:
         logger.info(
             f'method={request.method} path={request.path} status={response.status_code} time spent={time_spent}'
         )
+        print(f'method={request.method} path={request.path} status={response.status_code} time spent={time_spent}')
         return response
 
 

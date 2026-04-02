@@ -14,8 +14,10 @@ def add_download_queue(req):
     # mediaType: audio or video
     # linkProvider: debrid or google or direct
     link_provider = req.data.get("linkProvider")
+    print("DEBUG link_provider:", link_provider)
     if link_provider == "debridDownload":
         download_result = async_to_sync(debrid_download)(req)
+        print("DEBUG download_result:", download_result)
 
     return Response(
         download_result["downloads"],
