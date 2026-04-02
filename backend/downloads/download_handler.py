@@ -5,9 +5,6 @@ load_dotenv()
 DEBRID_DOWNLOAD_API = os.getenv('DEBRID_DOWNLOAD_API')
 JELLYFIN_PATH = os.getenv('JELLYFIN_PATH')
 
-
-
-
 async def debrid_download(req):
     try:
         stored_location = req.data.get("storedLocation")
