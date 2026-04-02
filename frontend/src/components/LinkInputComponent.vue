@@ -13,7 +13,7 @@ const link_provider_option = ref('debridDownload');
 
 async function onDownloadQueued() {
     console.log("sent!")
-    const response = await axios.post('http://localhost:8000/api/download/queue_downloads', {
+    const response = await axios.post('/api/download/queue_downloads', {
         url: download_link.value,
         storedLocation: fileDestination.value,
         mediaType: media_type.value,
