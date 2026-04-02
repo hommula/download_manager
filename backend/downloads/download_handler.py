@@ -1,4 +1,5 @@
 import math, re, os, asyncio, httpx
+from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -46,7 +47,8 @@ async def download_handler(file, media_type, stored_location):
         safe_file_name = re.sub(r"[^a-zA-Z0-9._-]", "", file["name"])
         download_dir_path = os.path.join(JELLYFIN_PATH, media_type, stored_location)
         try:
-            os.mkdir(download_dir_path)
+            path = Path(download_dir_path)
+            path.mkdir(parents=True,exist_ok=True)
         except OSError as e:
             print(e)
         full_path = os.path.join(download_dir_path, safe_file_name)
