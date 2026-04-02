@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DEBRID_DOWNLOAD_API = os.getenv('DEBRID_DOWNLOAD_API')
+DEBRID_API_KEY = os.getenv('DEBRID_API_KEY')
 JELLYFIN_PATH = os.getenv('JELLYFIN_PATH')
 
 async def debrid_download(req):
@@ -13,7 +14,7 @@ async def debrid_download(req):
         url = req.data.get("url")
         payload = {"url": url}
         async with httpx.AsyncClient() as client:
-            r = await client.post(DEBRID_DOWNLOAD_API, json=payload)
+            r = await client.post(DEBRID_DOWNLOAD_API, json=payload, headers={"Authorization": f"Bearer {DEBRID_API_KEY}"})
         data = r.json()
         print("DEBUG debrid API response:", data)
 
