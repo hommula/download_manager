@@ -19,7 +19,8 @@ async def debrid_download(req):
         print("DEBUG debrid API response:", data)
 
         if data["success"] and data["value"]:
-            files_to_download = [file for file in data["value"]]
+            value = data["value"]
+            files_to_download = value if isinstance(value, list) else [value]
             queued_downloads = []
             for file in files_to_download:
                 download_result = await download_handler(file, media_type, stored_location)
