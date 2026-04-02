@@ -22,8 +22,6 @@ async function onDownloadQueued() {
     console.log(response.data);
     alert(response.data)
 }
-
-
 </script>
 
 <template>
@@ -48,8 +46,8 @@ async function onDownloadQueued() {
                 <label for="mediaType">Media Type</label>
                 <select name="mediaType" id="mediaTypeSelection" v-model="media_type">
                     <option value="" disabled>select media type</option>
-                    <option value="audio">audio</option>
-                    <option value="video">video</option>
+                    <option value="audios">audios</option>
+                    <option value="videos">videos</option>
                 </select>
                 <label for="fileDestination">Destination</label>
                 <input v-model="fileDestination" placeholder="File Destination" type="text">
